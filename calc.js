@@ -38,20 +38,22 @@ function operate(num1, num2, operator) {
   }
   return result;
 }
-
+let args = {};
 const buttons = document.querySelectorAll(".button");
 buttons.forEach((btn) => btn.addEventListener("click", executeClick));
 
 function executeClick(e) {
-  let operator = "";
-  let operand = 0;
   if (e.target.id === "=") {
     console.log("run operate function");
   } else if (Number.isNaN(parseInt(e.target.id))) {
-    operator = e.target.id;
+    args.operator = e.target.id;
   } else {
-    operand = e.target.id;
+    if (args.operand != undefined) {
+      args.prevOperand = args.operand;
+    }
+    args.operand = e.target.id;
   }
-  console.log("Current Operation: " + operator);
-  console.log("Current Operand: " + operand);
+  console.log("Current Operation: " + args.operator);
+  console.log("Current Operand: " + args.operand);
+  console.log("Previous Operand: " + args.prevOperand);
 }

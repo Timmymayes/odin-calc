@@ -6,8 +6,28 @@ html {
 }
 
 div {
-    padding: 10px;
+    padding: 2px;
 
+}
+
+#history, #buffer {
+    /* border: 1px dashed black; */
+    display: flex;
+    flex-flow: row-reverse;
+    
+}
+
+#history {
+    height: 30px;
+}
+
+#buffer {
+    height: 40px;
+    align-items: flex-end;
+
+}
+#buffer-text {
+    font-size: 30px;
 }
 
 body .content .header {
@@ -33,6 +53,10 @@ align-items: center;
     height: 70px;
     width: 320px;
     margin-bottom: 10px;
+    padding: 0;
+    display: flex;
+    flex-flow: column;
+    
 
     
 }

@@ -20,20 +20,20 @@ function multiply(num1, num2) {
   return num1 * num2;
 }
 
-function operate(num1, num2, operator) {
+function operate(calculation) {
   let result;
-  switch (operator) {
+  switch (calculation.operator) {
     case "+":
-      result = sum(num1, num2);
+      result = sum(calculation.operand, calculation.prevOperand);
       break;
     case "-":
-      result = subtract(num1, num2);
+      result = subtract(calculation.prevOperand, calculation.operand);
       break;
     case "/":
-      result = divide(num1, num2);
+      result = divide(calculation.prevOperand, calculation.operand);
       break;
     case "*":
-      result = multiply(num1, num2);
+      result = multiply(calculation.operand, calculation.prevOperand);
       break;
   }
   return result;
@@ -44,14 +44,26 @@ buttons.forEach((btn) => btn.addEventListener("click", executeClick));
 
 function executeClick(e) {
   if (e.target.id === "=") {
-    console.log("run operate function");
+    if (
+      args.operator != undefined &&
+      args.prevOperand != undefined &&
+      args.operand != undefined
+    ) {
+      console.log(operate(args));
+      args = {};
+    }
   } else if (Number.isNaN(parseInt(e.target.id))) {
-    args.operator = e.target.id;
-  } else {
     if (args.operand != undefined) {
       args.prevOperand = args.operand;
     }
-    args.operand = e.target.id;
+    args.operator = e.target.id;
+    args.operand = undefined;
+  } else {
+    if (args.operand === undefined) {
+      args.operand = e.target.id;
+    } else {
+      args.operand += parseInt(e.target.id);
+    }
   }
   console.log("Current Operation: " + args.operator);
   console.log("Current Operand: " + args.operand);

@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8"/>
         <title>My Calculator</title>
-	<script type="text/javascript" src="calc.js"></script>
+	<script type="text/javascript" src="calc.js" defer ></script>
 	<link href="style.css" rel="stylesheet"/>
 	
     </head>
@@ -13,34 +13,31 @@
 	    <div id="calculator">
 		<div id="display">
 		    <div id="history">
-			<div>20</div>
-			<div>+</div>
-			<div>20</div>
-
+			<div id="history-text">20+20+20+20+20+20+20+20+20+20+20+20</div>
 		    </div>
 		    <div id="buffer">
-			<div id="buffer-text">250,100</div>
+			<div id="buffer-text">88888888888888888888</div>
 		    </div>
 		</div>
 		<div id="controls">
-		    <div class="standard-button"><button class="button">7</button></div>
-		    <div class="standard-button"><button class="button">8</button></div>
-		    <div class="standard-button"><button class="button">9</button></div>
-		    <div class="standard-button"><button class="button">+</button></div>
-		    <div class="standard-button"><button class="button">AC</button></div>
-		    <div class="standard-button"><button class="button">4</button></div>
-		    <div class="standard-button"><button class="button">5</button></div>
-		    <div class="standard-button"><button class="button">6</button></div>
-		    <div class="standard-button"><button class="button">-</button></div>
-		    <div class="standard-button"><button class="button">CLR</button></div>
-		    <div class="standard-button"><button class="button">1</button></div>
-		    <div class="standard-button"><button class="button">2</button></div>
-		    <div class="standard-button"><button class="button">3</button></div>
-		    <div class="standard-button"><button class="button">/</button></div>
-		    <div class="tall-button"><button class="button">=</button></div>
-		    <div class="wide-button"><button class="button">0</button></div>
-		    <div class="standard-button"><button class="button">.</button></div>
-		    <div class="standard-button"><button class="button">*</button></div>
+		    <div class="standard-button"><button class="button" id="7">7</button></div>
+		    <div class="standard-button"><button class="button" id="8">8</button></div>
+		    <div class="standard-button"><button class="button" id="9">9</button></div>
+		    <div class="standard-button"><button class="button" id="+">+</button></div>
+		    <div class="standard-button"><button class="button" id="AC">AC</button></div>
+		    <div class="standard-button"><button class="button" id="4">4</button></div>
+		    <div class="standard-button"><button class="button" id="5">5</button></div>
+		    <div class="standard-button"><button class="button" id="6">6</button></div>
+		    <div class="standard-button"><button class="button" id="-">-</button></div>
+		    <div class="standard-button"><button class="button" id="CLR">CLR</button></div>
+		    <div class="standard-button"><button class="button" id="1">1</button></div>
+		    <div class="standard-button"><button class="button" id="2">2</button></div>
+		    <div class="standard-button"><button class="button" id="3">3</button></div>
+		    <div class="standard-button"><button class="button" id="/">/</button></div>
+		    <div class="tall-button"><button class="button" id="=">=</button></div>
+		    <div class="wide-button"><button class="button" id="0">0</button></div>
+		    <div class="standard-button"><button class="button" id=".">.</button></div>
+		    <div class="standard-button"><button class="button" id="*">*</button></div>
 		</div>
 		
 	    </div>

@@ -2,22 +2,22 @@ const MAX_HISTORY_LENGTH = 35;
 const MAX_BUFFER_LENGTH = 18;
 
 function sum(num1, num2) {
-  return parseInt(num1) + parseInt(num2);
+  return parseFloat(num1) + parseFloat(num2);
 }
 
 function subtract(num1, num2) {
-  return num1 - num2;
+  return parseFloat(num1) - parseFloat(num2);
 }
 
 function divide(num1, num2) {
-  if (num2 === 0) {
-    return "ERROR";
+  if (num2 === "0") {
+    return "Zero, cool!";
   }
-  return num1 / num2;
+  return parseFloat(num1) / parseFloat(num2);
 }
 
 function multiply(num1, num2) {
-  return num1 * num2;
+  return parseFloat(num1) * parseFloat(num2);
 }
 
 function operate(calculation) {
@@ -44,7 +44,7 @@ let args = {};
 const buffer = document.getElementById("buffer-text");
 const history = document.getElementById("history-text");
 const buttons = document.querySelectorAll(".button");
-
+clearButtons();
 buttons.forEach((btn) => btn.addEventListener("click", executeClick));
 
 function executeClick(e) {
@@ -65,17 +65,25 @@ function executeClick(e) {
   } else if (e.target.id === "CLR") {
     // Clear
     clearBuffer();
-    clearButtons();
-    args = {};
-  } else if (e.target.id === "AC") {
-    // all clear
     clearHistory();
-    clearBuffer();
     clearButtons();
     args = {};
-  } else if (Number.isNaN(parseInt(e.target.id))) {
-    // operators
+  } else if (e.target.id === "BCK") {
+    // backspace
+    if (args.operand != undefined) {
+      args.operand = args.operand.slice(0, args.operand.length - 1);
 
+      clearBuffer();
+      appendBuffer(args.operand);
+    }
+  } else if (Number.isNaN(parseFloat(e.target.id)) && e.target.id != ".") {
+    // operators
+    // clear buttons if operator is pressed first.
+
+    if (args.operand === undefined && args.prevOperand === undefined) {
+      clearButtons();
+      clearBuffer();
+    }
     // if we have an ope
     if (args.operand != undefined && args.prevOperand != undefined) {
       let solution = calculate(args);
@@ -93,15 +101,17 @@ function executeClick(e) {
     }
 
     // set operator & highlighting
-    args.prevOperator = args.operator;
-    args.operator = e.target.id;
-    clearButtons();
-    e.target.style.background = "grey";
-
-    // clear buttons if operator is pressed first.
-    if (args.operand === undefined && args.prevOperand === undefined) {
+    if (buffer.textContent != "Zero, cool!") {
+      args.prevOperator = args.operator;
+      args.operator = e.target.id;
       clearButtons();
+      console.log("button is " + e.target.id);
+      e.target.style.background = "#cc3300";
+    } else {
       clearBuffer();
+      clearButtons();
+      clearHistory();
+      args = {};
     }
   } else {
     //Numbers
@@ -120,8 +130,10 @@ function executeClick(e) {
       }
       appendBuffer(e.target.id);
     } else {
-      appendBuffer(e.target.id);
-      args.operand += parseInt(e.target.id);
+      if (!args.operand.includes(".") || e.target.id != ".") {
+        appendBuffer(e.target.id);
+        args.operand += e.target.id;
+      }
     }
   }
 
@@ -133,19 +145,25 @@ function executeClick(e) {
 function calculate(equation) {
   console.log("Calculating...");
   let answer;
+  let answerString;
   clearHistory();
   appendHistory(equation.prevOperand + equation.operator + args.operand);
   clearBuffer();
   answer = operate(equation);
-  if (answer.length > MAX_BUFFER_LENGTH) {
-    if (!answer.includes(".")) {
-      answer = "OVERFLOW";
+  answerString = Number.toString("Answer");
+
+  if (answerString.length > MAX_BUFFER_LENGTH) {
+    console.log("too long");
+    if (!answerString.includes(".")) {
+      answerString = "OVERFLOW";
     } else {
-      answer = parseFloat(answer).toFixed(18 - answer.indexOf("."));
+      answerString = parseFloat(answer).toFixed(18 - answer.indexOf("."));
       console.log("Answer Rounded");
     }
   }
+
   appendBuffer(answer);
+  console.log(buffer.textContent);
 
   return answer;
 }
@@ -167,8 +185,8 @@ function appendHistory(textToAppend) {
 }
 
 function clearButtons() {
-  document.getElementById("-").style.background = "lightgrey";
-  document.getElementById("*").style.background = "lightgrey";
-  document.getElementById("/").style.background = "lightgrey";
-  document.getElementById("+").style.background = "lightgrey";
+  document.getElementById("-").style.background = "orange";
+  document.getElementById("*").style.background = "orange";
+  document.getElementById("/").style.background = "orange";
+  document.getElementById("+").style.background = "orange";
 }
